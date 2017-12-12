@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ExpandableTextLayout">
+        <attr name="collapsedLines" format="integer"/>
+        <attr name="duration" format="integer"/>
+        <attr name="expandedText" format="string"/>
+        <attr name="collapsedText" format="string"/>
+    </declare-styleable>
+</resources>
