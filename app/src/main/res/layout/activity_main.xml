@@ -9,12 +9,13 @@
     tools:context="com.zerdaket.demo.MainActivity">
 
     <com.zerdaket.expandable.ExpandableTextLayout
+        android:id="@+id/expandable_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp">
 
         <TextView
-            android:id="@+id/main_text_view"
+            android:id="@+id/content_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="123"/>

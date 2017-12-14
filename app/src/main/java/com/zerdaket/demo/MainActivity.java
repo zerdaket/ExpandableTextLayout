@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mTextView = findViewById(R.id.main_text_view);
+        mTextView = findViewById(R.id.content_text);
         mTextView.setText(TEXT_CONTENT);
     }
 
