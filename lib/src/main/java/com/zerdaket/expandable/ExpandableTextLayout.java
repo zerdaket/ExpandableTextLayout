@@ -41,8 +41,8 @@ public class ExpandableTextLayout extends LinearLayout {
     private ValueAnimator mExpandedAnimator;
     private ValueAnimator mCollapsedAnimator;
     private ValueAnimator mValueAnimator;
-    private int[] mExpandedValueRange = {0, 0};
-    private int[] mCollapsedValueRange = {0, 0};
+    private int[] mExpandedValueRange = new int[2];
+    private int[] mCollapsedValueRange = new int[2];
 
     private int mAnimationDuration;
     private int mCollapsedLines;
