@@ -60,9 +60,9 @@ Add `ExpandableTextLayout` as a container to the TextView you want to make expan
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	app:collapsedLines="3"
-	app:duration="200"
-	app:expandedText="expand"
-	app:collapsedText="collapse">
+	app:animationDuration="200"
+	app:toggleExpandedText="expand"
+	app:toggleCollapsedText="collapse">
 
 	<TextView
 		android:id="@+id/content_text"

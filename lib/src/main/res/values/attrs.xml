@@ -2,8 +2,9 @@
 <resources>
     <declare-styleable name="ExpandableTextLayout">
         <attr name="collapsedLines" format="integer"/>
-        <attr name="duration" format="integer"/>
-        <attr name="expandedText" format="string"/>
-        <attr name="collapsedText" format="string"/>
+        <attr name="animationDuration" format="integer"/>
+        <attr name="toggleExpandedText" format="string"/>
+        <attr name="toggleCollapsedText" format="string"/>
+        <attr name="toggleTextAppearance" format="reference"/>
     </declare-styleable>
 </resources>

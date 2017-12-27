@@ -12,13 +12,14 @@
         android:id="@+id/expandable_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:padding="8dp"
+        app:toggleTextAppearance="@style/ToggleTextAppearance">
 
         <TextView
             android:id="@+id/content_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="123"/>
+            tools:text="test"/>
 
     </com.zerdaket.expandable.ExpandableTextLayout>
 

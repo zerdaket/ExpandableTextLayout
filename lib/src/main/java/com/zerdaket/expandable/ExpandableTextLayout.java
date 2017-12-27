@@ -9,6 +9,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -35,14 +36,15 @@ public class ExpandableTextLayout extends LinearLayout {
     private TextView mContentTextView;
 
     private TextView mToggleTextView;
-    private CharSequence mExpandedText;
-    private CharSequence mCollapsedText;
+    private int mToggleTextAppearance;
+    private CharSequence mToggleExpandedText;
+    private CharSequence mToggleCollapsedText;
 
     private ValueAnimator mExpandedAnimator;
     private ValueAnimator mCollapsedAnimator;
     private ValueAnimator mValueAnimator;
-    private int[] mExpandedValueRange = new int[2];
-    private int[] mCollapsedValueRange = new int[2];
+    private int[] mExpandedValueRange;
+    private int[] mCollapsedValueRange;
 
     private int mAnimationDuration;
     private int mCollapsedLines;
@@ -67,20 +69,23 @@ public class ExpandableTextLayout extends LinearLayout {
         final TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.ExpandableTextLayout);
 
         mCollapsedLines = ta.getInteger(R.styleable.ExpandableTextLayout_collapsedLines, DEFAULT_COLLAPSED_LINES);
-        mAnimationDuration = ta.getInteger(R.styleable.ExpandableTextLayout_duration, DEFAULT_ANIMATION_DURATION);
-        mExpandedText = ta.getString(R.styleable.ExpandableTextLayout_expandedText);
-        mCollapsedText = ta.getString(R.styleable.ExpandableTextLayout_collapsedText);
+        mAnimationDuration = ta.getInteger(R.styleable.ExpandableTextLayout_animationDuration, DEFAULT_ANIMATION_DURATION);
+        mToggleExpandedText = ta.getString(R.styleable.ExpandableTextLayout_toggleExpandedText);
+        mToggleCollapsedText = ta.getString(R.styleable.ExpandableTextLayout_toggleCollapsedText);
+        mToggleTextAppearance = ta.getResourceId(R.styleable.ExpandableTextLayout_toggleTextAppearance, 0);
 
         ta.recycle();
 
-        if (TextUtils.isEmpty(mExpandedText)) {
-            mExpandedText = getContext().getString(R.string.expanded_text);
+        if (TextUtils.isEmpty(mToggleExpandedText)) {
+            mToggleExpandedText = getContext().getString(R.string.expanded_text);
         }
-        if (TextUtils.isEmpty(mCollapsedText)) {
-            mCollapsedText = getContext().getString(R.string.collapsed_text);
+        if (TextUtils.isEmpty(mToggleCollapsedText)) {
+            mToggleCollapsedText = getContext().getString(R.string.collapsed_text);
         }
 
         mIsCollapsed = true;
+        mExpandedValueRange = new int[2];
+        mCollapsedValueRange = new int[2];
 
         mContentLayout = new FrameLayout(getContext());
         mContentLayout.setAddStatesFromChildren(true);
@@ -96,6 +101,7 @@ public class ExpandableTextLayout extends LinearLayout {
         LayoutParams toggleTextParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         toggleTextParams.gravity = Gravity.CENTER_HORIZONTAL;
         mToggleTextView.setLayoutParams(toggleTextParams);
+        mToggleTextView.setTextAppearance(getContext(), mToggleTextAppearance);
         mToggleLayout.addView(mToggleTextView);
 
         mToggleLayout.setOnClickListener(new OnClickListener() {
@@ -112,11 +118,11 @@ public class ExpandableTextLayout extends LinearLayout {
         if (mIsCollapsed) {
             mValueAnimator =
                     getExpandedAnimator(mContentLayout.getHeight(), mContentRealHeight);
-            mToggleTextView.setText(mCollapsedText);
+            mToggleTextView.setText(mToggleCollapsedText);
         } else {
             mValueAnimator =
                     getCollapsedAnimator(mContentLayout.getHeight(), mContentCollapsedHeight);
-            mToggleTextView.setText(mExpandedText);
+            mToggleTextView.setText(mToggleExpandedText);
         }
         mValueAnimator.setDuration(mAnimationDuration);
         mValueAnimator.start();
@@ -165,10 +171,10 @@ public class ExpandableTextLayout extends LinearLayout {
         }
         if (mIsCollapsed) {
             mContentTextView.setMaxLines(mCollapsedLines);
-            mToggleTextView.setText(mExpandedText);
+            mToggleTextView.setText(mToggleExpandedText);
         } else {
             mContentTextView.setMaxLines(Integer.MAX_VALUE);
-            mToggleTextView.setText(mCollapsedText);
+            mToggleTextView.setText(mToggleCollapsedText);
         }
         mToggleLayout.setVisibility(VISIBLE);
     }
@@ -318,20 +324,20 @@ public class ExpandableTextLayout extends LinearLayout {
         return mIsCollapsed;
     }
 
-    public CharSequence getExpandedText() {
-        return mExpandedText;
+    public CharSequence getToggleExpandedText() {
+        return mToggleExpandedText;
     }
 
-    public void setExpandedText(CharSequence expandedText) {
-        mExpandedText = expandedText;
+    public void setToggleExpandedText(CharSequence toggleExpandedText) {
+        mToggleExpandedText = toggleExpandedText;
     }
 
-    public CharSequence getCollapsedText() {
-        return mCollapsedText;
+    public CharSequence getToggleCollapsedText() {
+        return mToggleCollapsedText;
     }
 
-    public void setCollapsedText(CharSequence collapsedText) {
-        mCollapsedText = collapsedText;
+    public void setToggleCollapsedText(CharSequence toggleCollapsedText) {
+        mToggleCollapsedText = toggleCollapsedText;
     }
 
     public int getAnimationDuration() {
@@ -348,5 +354,12 @@ public class ExpandableTextLayout extends LinearLayout {
 
     public void setCollapsedLines(int collapsedLines) {
         mCollapsedLines = collapsedLines;
+    }
+
+    public void setToggleTextAppearance(@StyleRes int resId) {
+        mToggleTextAppearance = resId;
+        if (mToggleTextView != null) {
+            mToggleTextView.setTextAppearance(getContext(), resId);
+        }
     }
 }
