@@ -27,7 +27,7 @@ Step 2. Add the dependency
 
 ```
 dependencies {
-	compile 'com.github.zerdaket:ExpandableTextLayout:v0.1.0'
+	implementation 'com.github.zerdaket:ExpandableTextLayout:latest-version'
 }
 
 ```
@@ -47,7 +47,7 @@ Step 2. Add the dependency
 <dependency>
 	<groupId>com.github.zerdaket</groupId>
 	<artifactId>ExpandableTextLayout</artifactId>
-	<version>v0.1.0</version>
+	<version>latest-version</version>
 </dependency>
 
 ```
@@ -62,7 +62,8 @@ Add `ExpandableTextLayout` as a container to the TextView you want to make expan
 	app:collapsedLines="3"
 	app:animationDuration="200"
 	app:toggleExpandedText="expand"
-	app:toggleCollapsedText="collapse">
+	app:toggleCollapsedText="collapse"
+	app:toggleTextAppearance="@style/...">
 
 	<TextView
 		android:id="@+id/content_text"
